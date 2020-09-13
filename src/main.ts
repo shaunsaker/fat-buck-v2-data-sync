@@ -4,3 +4,5 @@ const main = async () => {
 };
 
 main();
+
+process.exit();

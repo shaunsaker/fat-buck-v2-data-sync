@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import { api } from '.';
 import { getApiEndpoint } from './getApiEndpoint';
 import { Trades } from './models';

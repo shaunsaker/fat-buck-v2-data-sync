@@ -15,24 +15,33 @@ import { saveProfit } from './firebase/saveProfit';
 import { saveTrades } from './firebase/saveTrades';
 
 const main = async () => {
+  console.log('Starting.');
   const isAlive = await getIsAlive();
   await saveIsAlive(isAlive);
 
   if (!isAlive) {
+    console.log('Not alive. Stopping.');
     process.exit();
   }
 
   const accessToken = await getAccessToken();
 
+  console.log('Getting trades.');
   const trades = await getTrades(accessToken);
+  console.log('Saving trades.');
   await saveTrades(trades);
 
+  console.log('Getting profit.');
   const profit = await getProfit(accessToken);
+  console.log('Saving profit.');
   await saveProfit(profit);
 
+  console.log('Getting balance.');
   const balance = await getBalance(accessToken);
+  console.log('Saving balance.');
   await saveBalance(balance);
 
+  console.log('Done.');
   process.exit();
 };
 

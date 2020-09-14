@@ -7,4 +7,4 @@ admin.initializeApp({
   databaseURL: 'https://covid-19-south-africa.firebaseio.com',
 });
 
-export default admin;
+export { admin as firebase };

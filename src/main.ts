@@ -8,6 +8,7 @@ import { getAccessToken } from './api/getAccessToken';
 import { getBalance } from './api/getBalance';
 import { getIsAlive } from './api/getIsAlive';
 import { getProfit } from './api/getProfit';
+import { getOpenTrades } from './api/getOpenTrades';
 import { getTrades } from './api/getTrades';
 import { saveBalance } from './firebase/saveBalance';
 import { saveIsAlive } from './firebase/saveIsAlive';
@@ -36,8 +37,11 @@ const main = async () => {
 
   console.log('Getting trades.');
   const trades = await getTrades(accessToken);
+  console.log('Getting open trades.');
+  const openTrades = await getOpenTrades(accessToken); // aka open trades
+  const allTrades = [...trades, ...openTrades];
   console.log('Saving trades.');
-  await saveTrades(trades);
+  await saveTrades(allTrades);
 
   console.log('Getting profit.');
   const profit = await getProfit(accessToken);

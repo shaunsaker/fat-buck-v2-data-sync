@@ -16,7 +16,15 @@ import { saveTrades } from './firebase/saveTrades';
 
 const main = async () => {
   console.log('Starting.');
-  const isAlive = await getIsAlive();
+
+  // test if the server is up
+  let isAlive = false;
+  try {
+    isAlive = await getIsAlive();
+  } catch (error) {
+    console.log('Server error.', error);
+  }
+
   await saveIsAlive(isAlive);
 
   if (!isAlive) {

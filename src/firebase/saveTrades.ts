@@ -16,7 +16,10 @@ export const saveTrades = async (trades: Trades): Promise<void> => {
 
   for (const trade of trades) {
     const id = getTradeId(trade);
-    const tradeExists = await (await tradesRef.doc(id).get()).exists;
+    const existingTrade = (await tradesRef.doc(id).get()).data() as
+      | { closeTimestamp: number }
+      | undefined;
+    const tradeExists = existingTrade?.closeTimestamp;
 
     if (!tradeExists) {
       const parsedTrade = camelcaseKeys(trade);

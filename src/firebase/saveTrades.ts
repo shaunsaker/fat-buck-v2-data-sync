@@ -3,16 +3,22 @@ import { firebase } from '.';
 import { Trades, Trade } from '../api/models';
 import { getDate } from '../utils/getDate';
 
-// CFO: if there are multiple bots placing the same trades at the same time, this id won't work - suggest we get the bot name somehow and attach that
 const getTradeId = (trade: Trade): string => {
   const coin = trade.pair.split('/')[0];
-  const tradeId = `${trade.open_timestamp}-${coin}`; // we can't use trade_id because the local db might be reset, this should be unique enough
+  const tradeId = `${trade.open_timestamp}-${coin}`; // we can't use trade_id because the local db might be reset and it might reset the trade ids (they use indexes, 1 to n), this should be unique enough
   return tradeId;
 };
 
-export const saveTrades = async (trades: Trades): Promise<void> => {
+export const saveTrades = async (
+  trades: Trades,
+  activeBotId: string,
+): Promise<void> => {
   const date = getDate();
-  const tradesRef = firebase.firestore().collection('trades');
+  const tradesRef = firebase
+    .firestore()
+    .collection('bots')
+    .doc(activeBotId)
+    .collection('trades');
 
   for (const trade of trades) {
     const id = getTradeId(trade);

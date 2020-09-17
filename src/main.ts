@@ -14,9 +14,11 @@ import { saveBalance } from './firebase/saveBalance';
 import { saveIsAlive } from './firebase/saveIsAlive';
 import { saveProfit } from './firebase/saveProfit';
 import { saveTrades } from './firebase/saveTrades';
+import { getActiveBotId } from './firebase/getActiveBotId';
 
 const main = async () => {
   console.log('Starting.');
+  const activeBotId = await getActiveBotId();
 
   // test if the server is up
   let isAlive = false;
@@ -26,7 +28,7 @@ const main = async () => {
     console.log('Server error.', error);
   }
 
-  await saveIsAlive(isAlive);
+  await saveIsAlive(isAlive, activeBotId);
 
   if (!isAlive) {
     console.log('Not alive. Stopping.');
@@ -41,17 +43,17 @@ const main = async () => {
   const openTrades = await getOpenTrades(accessToken); // aka open trades
   const allTrades = [...trades, ...openTrades];
   console.log('Saving trades.');
-  await saveTrades(allTrades);
+  await saveTrades(allTrades, activeBotId);
 
   console.log('Getting profit.');
   const profit = await getProfit(accessToken);
   console.log('Saving profit.');
-  await saveProfit(profit);
+  await saveProfit(profit, activeBotId);
 
   console.log('Getting balance.');
   const balance = await getBalance(accessToken);
   console.log('Saving balance.');
-  await saveBalance(balance);
+  await saveBalance(balance, activeBotId);
 
   console.log('Done.');
   process.exit();

@@ -3,9 +3,17 @@ import { firebase } from '.';
 import { Balance } from '../api/models';
 import { getDate } from '../utils/getDate';
 
-export const saveBalance = async (balance: Balance): Promise<void> => {
+export const saveBalance = async (
+  balance: Balance,
+  activeBotId: string,
+): Promise<void> => {
   const date = getDate();
-  const ref = firebase.firestore().collection('balance').doc('latest');
+  const ref = firebase
+    .firestore()
+    .collection('bots')
+    .doc(activeBotId)
+    .collection('balance')
+    .doc('latest');
   const parsedData = camelcaseKeys(balance);
   await ref.set({
     ...parsedData,

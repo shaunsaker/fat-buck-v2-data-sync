@@ -8,15 +8,16 @@ export const saveProfit = async (
   activeBotId: string,
 ): Promise<void> => {
   const date = getDate();
-  const ref = firebase
+  const profitRef = firebase
     .firestore()
     .collection('bots')
     .doc(activeBotId)
-    .collection('profit')
-    .doc('latest');
+    .collection('profit');
   const parsedData = camelcaseKeys(profit);
-  await ref.set({
+  const data = {
     ...parsedData,
     dateAdded: date,
-  });
+  };
+  await profitRef.doc('latest').set(data);
+  await profitRef.doc(date).set(data);
 };

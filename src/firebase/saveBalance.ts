@@ -8,15 +8,16 @@ export const saveBalance = async (
   activeBotId: string,
 ): Promise<void> => {
   const date = getDate();
-  const ref = firebase
+  const balanceRef = firebase
     .firestore()
     .collection('bots')
     .doc(activeBotId)
-    .collection('balance')
-    .doc('latest');
+    .collection('balance');
   const parsedData = camelcaseKeys(balance);
-  await ref.set({
+  const data = {
     ...parsedData,
     dateAdded: date,
-  });
+  };
+  await balanceRef.doc('latest').set(data);
+  await balanceRef.doc(date).set(data);
 };

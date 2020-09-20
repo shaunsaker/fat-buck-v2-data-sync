@@ -6,6 +6,7 @@ export const saveIsAlive = async (
   activeBotId: string,
 ): Promise<void> => {
   const date = getDate();
+
   await firebase.firestore().collection('bots').doc(activeBotId).set({
     isAlive,
     dateUpdated: date,

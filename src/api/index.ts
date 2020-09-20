@@ -1,4 +1,4 @@
-const apiBase = 'http://03df33d39032.ngrok.io/api/v1';
+const apiBase = 'http://29d57ab2aacb.ngrok.io/api/v1';
 
 export const api = {
   ping: `${apiBase}/ping`,

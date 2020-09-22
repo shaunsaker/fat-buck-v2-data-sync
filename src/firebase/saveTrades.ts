@@ -1,6 +1,6 @@
 import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
-import { Trades, Trade } from '../api/models';
+import { Trades, Trade, ParsedTrades } from '../api/models';
 import { getDate } from '../utils/getDate';
 
 const getTradeId = (trade: Trade): string => {
@@ -20,12 +20,16 @@ export const saveTrades = async (
     .doc(activeBotId)
     .collection('trades');
 
+  const existingTrades = (await (await tradesRef.get()).docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }))) as ParsedTrades;
+
   for (const trade of trades) {
     const id = getTradeId(trade);
-    const existingTrade = (await tradesRef.doc(id).get()).data() as
-      | { closeTimestamp: number }
-      | undefined;
-    const tradeExists = existingTrade?.closeTimestamp;
+    const tradeExists = existingTrades.some(
+      (trade) => trade.id === id && trade.closeTimestamp,
+    );
 
     if (!tradeExists) {
       const parsedTrade = camelcaseKeys(trade);
@@ -33,6 +37,18 @@ export const saveTrades = async (
         ...parsedTrade,
         dateAdded: date,
       });
+    }
+  }
+
+  // if an open trade with no feeOpenCost is in Firestore and is no longer in trades, assume it was cancelled and remove it from Firestore
+  for (const existingTrade of existingTrades) {
+    if (
+      existingTrade.isOpen &&
+      !existingTrade.feeOpenCost &&
+      !trades.some((trade) => getTradeId(trade) === existingTrade.id)
+    ) {
+      `Removing cancelled trade: ${existingTrade.id}`;
+      await tradesRef.doc(existingTrade.id).delete();
     }
   }
 };

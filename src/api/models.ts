@@ -8,9 +8,26 @@ export interface Trade {
   sell_order_status: string;
   sell_reason: string;
   trade_id: string;
+  id: string;
 }
 
 export type Trades = Trade[];
+
+export interface ParsedTrade {
+  amount: number;
+  closeProfitAbs: number;
+  closeTimestamp: number;
+  isOpen: boolean;
+  openTimestamp: number;
+  pair: string;
+  sellOrderStatus: string;
+  sellReason: string;
+  tradeId: string;
+  id: string;
+  feeOpenCost: number;
+}
+
+export type ParsedTrades = ParsedTrade[];
 
 export interface Profit {
   closed_trade_count: number;

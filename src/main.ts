@@ -4,12 +4,12 @@ if (!isRunningOnHeroku) {
   require('dotenv').config();
 }
 
-import { getAccessToken } from './api/getAccessToken';
-import { getBalance } from './api/getBalance';
-import { getIsAlive } from './api/getIsAlive';
-import { getProfit } from './api/getProfit';
-import { getOpenTrades } from './api/getOpenTrades';
-import { getTrades } from './api/getTrades';
+import { getAccessToken } from './botApi/getAccessToken';
+import { getBalance } from './botApi/getBalance';
+import { getIsAlive } from './botApi/getIsAlive';
+import { getProfit } from './botApi/getProfit';
+import { getOpenTrades } from './botApi/getOpenTrades';
+import { getTrades } from './botApi/getTrades';
 import { saveBalance } from './firebase/saveBalance';
 import { saveIsAlive } from './firebase/saveIsAlive';
 import { saveProfit } from './firebase/saveProfit';

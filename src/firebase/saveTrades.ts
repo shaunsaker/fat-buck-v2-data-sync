@@ -1,6 +1,6 @@
 import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
-import { Trades, Trade, ParsedTrades } from '../api/models';
+import { Trades, Trade, ParsedTrades } from '../botApi/models';
 import { getDate } from '../utils/getDate';
 
 const getTradeId = (trade: Trade): string => {

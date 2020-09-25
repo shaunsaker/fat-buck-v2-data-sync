@@ -1,6 +1,6 @@
 import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
-import { Profit } from '../api/models';
+import { Profit } from '../botApi/models';
 import { getDate } from '../utils/getDate';
 
 export const saveProfit = async (

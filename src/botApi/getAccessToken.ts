@@ -1,11 +1,11 @@
 import Axios from 'axios';
-import { api } from '.';
+import { apiEndpoints } from '.';
 
-export const getAccessToken = async (): Promise<string> => {
+export const getAccessToken = async (api: string): Promise<string> => {
   const {
     data: { access_token: accessToken },
   } = await Axios.post(
-    api.login,
+    `${api}/${apiEndpoints.login}`,
     {},
     {
       auth: {

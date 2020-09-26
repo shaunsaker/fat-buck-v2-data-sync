@@ -5,13 +5,13 @@ import { getDate } from '../utils/getDate';
 
 export const saveProfit = async (
   profit: Profit,
-  activeBotId: string,
+  botId: string,
 ): Promise<void> => {
   const date = getDate();
   const ref = firebase
     .firestore()
     .collection('bots')
-    .doc(activeBotId)
+    .doc(botId)
     .collection('profit')
     .doc('latest');
   const parsedData = camelcaseKeys(profit);

@@ -11,13 +11,13 @@ const getTradeId = (trade: Trade): string => {
 
 export const saveTrades = async (
   trades: Trades,
-  activeBotId: string,
+  botId: string,
 ): Promise<void> => {
   const date = getDate();
   const tradesRef = firebase
     .firestore()
     .collection('bots')
-    .doc(activeBotId)
+    .doc(botId)
     .collection('trades');
 
   const existingTrades = (await (await tradesRef.get()).docs.map((doc) => ({

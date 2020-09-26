@@ -1,6 +1,6 @@
-const apiBase = 'http://29d57ab2aacb.ngrok.io/api/v1';
+const apiBase = '/api/v1';
 
-export const api = {
+export const apiEndpoints = {
   ping: `${apiBase}/ping`,
   login: `${apiBase}/token/login`,
   refreshToken: `${apiBase}/token/refresh`,

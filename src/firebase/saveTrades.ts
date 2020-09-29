@@ -3,9 +3,9 @@ import { firebase } from '.';
 import { Trades, Trade, ParsedTrades } from '../botApi/models';
 import { getDate } from '../utils/getDate';
 
-const getTradeId = (trade: Trade): string => {
+const getTradeId = (botId: string, trade: Trade): string => {
   const coin = trade.pair.split('/')[0];
-  const tradeId = `${trade.open_timestamp}-${coin}`; // we can't use trade_id because the local db might be reset and it might reset the trade ids (they use indexes, 1 to n), this should be unique enough
+  const tradeId = `${botId}-${trade.open_timestamp}-${coin}`;
   return tradeId;
 };
 
@@ -26,7 +26,7 @@ export const saveTrades = async (
   }))) as ParsedTrades;
 
   for (const trade of trades) {
-    const id = getTradeId(trade);
+    const id = getTradeId(botId, trade);
     const tradeExists = existingTrades.some(
       (trade) => trade.id === id && trade.closeTimestamp,
     );
@@ -45,7 +45,7 @@ export const saveTrades = async (
     if (
       existingTrade.isOpen &&
       !existingTrade.feeOpenCost &&
-      !trades.some((trade) => getTradeId(trade) === existingTrade.id)
+      !trades.some((trade) => getTradeId(botId, trade) === existingTrade.id)
     ) {
       `Removing cancelled trade: ${existingTrade.id}`;
       await tradesRef.doc(existingTrade.id).delete();

@@ -1,7 +1,7 @@
 import { firebase } from '.';
-import { Bot } from './models';
+import { BotData } from './models';
 
-export const getActiveBots = async (): Promise<Bot[]> => {
+export const getActiveBots = async (): Promise<BotData[]> => {
   const activeBots = await (
     await firebase
       .firestore()
@@ -10,7 +10,7 @@ export const getActiveBots = async (): Promise<Bot[]> => {
       .get()
   ).docs.map((doc) => {
     return {
-      ...(doc.data() as Bot),
+      ...(doc.data() as BotData),
       id: doc.id,
     };
   });

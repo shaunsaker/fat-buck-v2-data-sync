@@ -6,6 +6,7 @@ if (!isRunningOnHeroku) {
 
 import { getExchangeData } from './getExchangeData';
 import { getBotsData } from './getBotsData';
+import { handleDeposits } from './handleDeposits';
 
 const main = async () => {
   console.log('Starting.');
@@ -13,6 +14,8 @@ const main = async () => {
   await getBotsData();
 
   await getExchangeData();
+
+  await handleDeposits();
 
   console.log('Done.');
   process.exit();

@@ -1,7 +1,7 @@
 import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
-import { Trades, Trade, ParsedTrades } from '../botApi/models';
-import { getDate } from '../utils/getDate';
+import { Trades, Trade, ParsedTrades } from '../bots/models';
+import { getDate } from '../../utils/getDate';
 
 const getTradeId = (botId: string, trade: Trade): string => {
   const coin = trade.pair.split('/')[0];

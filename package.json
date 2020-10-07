@@ -28,7 +28,9 @@
     "build:watch": "tsc -w -p tsconfig.release.json",
     "start": "node ./build/src/main.js",
     "start:dev": "nodemon ./build/src/main.js",
-    "lint": "eslint . --ext .ts,.tsx",
+    "lint": "yarn lint:eslint && yarn lint:tsc",
+    "lint:eslint": "eslint . --ext .ts,.tsx",
+    "lint:tsc": "yarn build",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "deploy": "git push heroku master"

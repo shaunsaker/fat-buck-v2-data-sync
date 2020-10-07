@@ -1,6 +1,6 @@
 import { firebase } from '.';
-import { ExchangeRatesData } from '../exchangeRatesApi/models';
-import { getDate } from '../utils/getDate';
+import { ExchangeRatesData } from '../exchangeRates/models';
+import { getDate } from '../../utils/getDate';
 
 export const saveExchangeRates = async (
   exchangeRates: ExchangeRatesData,

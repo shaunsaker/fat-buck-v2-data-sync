@@ -1,10 +1,10 @@
 import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
-import { Profit } from '../botApi/models';
-import { getDate } from '../utils/getDate';
+import { Balance } from '../bots/models';
+import { getDate } from '../../utils/getDate';
 
-export const saveProfit = async (
-  profit: Profit,
+export const saveBalance = async (
+  balance: Balance,
   botId: string,
 ): Promise<void> => {
   const date = getDate();
@@ -12,9 +12,9 @@ export const saveProfit = async (
     .firestore()
     .collection('bots')
     .doc(botId)
-    .collection('profit')
+    .collection('balance')
     .doc('latest');
-  const parsedData = camelcaseKeys(profit);
+  const parsedData = camelcaseKeys(balance);
   await ref.set({
     ...parsedData,
     dateAdded: date,

@@ -1,5 +1,5 @@
 import { firebase } from '.';
-import { getDate } from '../utils/getDate';
+import { getDate } from '../../utils/getDate';
 
 export const saveIsAlive = async (
   botId: string,

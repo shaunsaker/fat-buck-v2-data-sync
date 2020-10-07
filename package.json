@@ -1,7 +1,7 @@
 {
-  "name": "node-typescript-boilerplate",
-  "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "name": "fat-buck-data-sync",
+  "version": "1.0.0",
+  "description": "Fat Buck's scheduled cloud functions for the Heroku server",
   "engines": {
     "node": ">= 12.13 <13"
   },
@@ -31,8 +31,9 @@
     "lint": "yarn lint:eslint && yarn lint:tsc",
     "lint:eslint": "eslint . --ext .ts,.tsx",
     "lint:tsc": "yarn build",
-    "test": "jest --coverage",
+    "test": "jest",
     "test:watch": "jest --watch",
+    "predeploy": "yarn lint && yarn test",
     "deploy": "git push heroku master"
   },
   "author": "Jakub Synowiec <github@jakubsynowiec.info>",

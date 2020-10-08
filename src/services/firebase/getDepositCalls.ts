@@ -3,7 +3,7 @@ import { DepositData } from './models';
 
 export const getDepositCalls = async (): Promise<DepositData[]> => {
   const depositCalls = await (
-    await firebase.firestore().collection('deposits').get()
+    await firebase.firestore().collection('depositCalls').get()
   ).docs.map((doc) => {
     return {
       ...(doc.data() as DepositData),

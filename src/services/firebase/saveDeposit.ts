@@ -4,7 +4,7 @@ import { DepositData } from './models';
 export const saveDeposit = async (deposit: DepositData): Promise<null> => {
   await firebase
     .firestore()
-    .collection('deposits')
+    .collection('depositCalls')
     .doc(deposit.id)
     .set(deposit, { merge: true });
 

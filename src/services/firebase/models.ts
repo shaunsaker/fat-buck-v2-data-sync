@@ -22,7 +22,19 @@ export interface DepositData {
   message?: string; // used for errors
 }
 
-export interface DepositTransactionData {
+export enum TransactionType {
+  DEPOSIT = 'DEPOSIT',
+  WITHDRAWAL = 'WITHDRAWAL',
+  COMMISSION = 'COMMISSION',
+}
+
+export interface BaseTransactionData {
+  date: string;
+  amount: number;
+  type: TransactionType;
+}
+
+export interface DepositTransactionData extends BaseTransactionData {
   uid: string;
   walletAddress: string;
   depositId: string;

@@ -9,6 +9,7 @@ import {
   DepositStatus,
   DepositTransactionData,
   TransactionData,
+  TransactionType,
 } from './services/firebase/models';
 import { saveDeposit } from './services/firebase/saveDeposit';
 import { saveTransaction } from './services/firebase/saveTransaction';
@@ -76,6 +77,7 @@ export const processDeposits = async (
           binanceTransactionId: deposit.txId,
           date,
           amount: deposit.amount,
+          type: TransactionType.DEPOSIT,
         };
 
         await onSaveTransaction(transaction);

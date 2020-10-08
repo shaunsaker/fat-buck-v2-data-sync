@@ -8,6 +8,7 @@ import {
   DepositData,
   DepositStatus,
   DepositTransactionData,
+  TransactionType,
 } from './services/firebase/models';
 import { getDate } from './utils/getDate';
 import { getUniqueId } from './utils/getUniqueId';
@@ -221,6 +222,7 @@ describe('handleDeposits', () => {
       binanceTransactionId: transactionId,
       date,
       amount: deposit.amount,
+      type: TransactionType.DEPOSIT,
     };
     const expectedDeposit: DepositData = {
       ...depositCall,

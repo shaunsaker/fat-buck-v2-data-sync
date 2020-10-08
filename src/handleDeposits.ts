@@ -96,11 +96,14 @@ export const processDeposits = async (
 
 export const handleDeposits = async (): Promise<null> => {
   // get the deposit history from binance
+  console.log('Getting deposit history.');
   const depositHistory = await getDepositHistory();
 
   // get the deposit calls from firebase
+  console.log('Getting deposit calls.');
   const depositCalls = await getDepositCalls();
 
+  console.log('Processing deposits.');
   await processDeposits(
     depositHistory,
     depositCalls,

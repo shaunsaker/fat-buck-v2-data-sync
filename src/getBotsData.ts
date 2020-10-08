@@ -20,7 +20,7 @@ export const getBotsData = async (): Promise<null> => {
     try {
       isAlive = await getIsAlive(bot.api);
     } catch (error) {
-      console.log('Server error.', error);
+      // console.log('Server error.', error);
     }
 
     await saveIsAlive(bot.id, isAlive);

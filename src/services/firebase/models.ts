@@ -39,8 +39,6 @@ export interface DepositTransactionData extends BaseTransactionData {
   walletAddress: string;
   depositCallId: string;
   binanceTransactionId: string;
-  date: string;
-  amount: number;
 }
 
 export type TransactionData = DepositTransactionData;

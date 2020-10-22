@@ -218,7 +218,7 @@ describe('handleDeposits', () => {
     const expectedTransaction: DepositTransactionData = {
       uid: depositCall.uid,
       walletAddress: depositCall.walletAddress,
-      depositId: depositCall.id,
+      depositCallId: depositCall.id,
       binanceTransactionId: transactionId,
       date,
       amount: deposit.amount,

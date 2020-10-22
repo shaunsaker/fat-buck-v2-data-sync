@@ -73,7 +73,7 @@ export const processDeposits = async (
         const transaction: DepositTransactionData = {
           uid: depositCall.uid,
           walletAddress: depositCall.walletAddress,
-          depositId: depositCall.id,
+          depositCallId: depositCall.id,
           binanceTransactionId: deposit.txId,
           date,
           amount: deposit.amount,

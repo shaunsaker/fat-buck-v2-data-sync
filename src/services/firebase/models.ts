@@ -42,3 +42,8 @@ export interface DepositTransactionData extends BaseTransactionData {
 }
 
 export type TransactionData = DepositTransactionData;
+
+export interface PoolBalanceData {
+  amount: number;
+  lastUpdated: string;
+}

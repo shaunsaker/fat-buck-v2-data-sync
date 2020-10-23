@@ -2,12 +2,10 @@ import { getAccessToken } from './services/bots/getAccessToken';
 import { getBalance } from './services/bots/getBalance';
 import { getIsAlive } from './services/bots/getIsAlive';
 import { getOpenTrades } from './services/bots/getOpenTrades';
-import { getProfit } from './services/bots/getProfit';
 import { getTrades } from './services/bots/getTrades';
 import { getActiveBots } from './services/firebase/getActiveBots';
 import { saveBalance } from './services/firebase/saveBalance';
 import { saveIsAlive } from './services/firebase/saveIsAlive';
-import { saveProfit } from './services/firebase/saveProfit';
 import { saveTrades } from './services/firebase/saveTrades';
 
 export const getBotsData = async (): Promise<null> => {
@@ -40,15 +38,10 @@ export const getBotsData = async (): Promise<null> => {
     console.log('Saving trades.');
     await saveTrades(allTrades, bot.id);
 
-    console.log('Getting profit.');
-    const profit = await getProfit(bot.api, accessToken);
-    console.log('Saving profit.');
-    await saveProfit(profit, bot.id);
-
     console.log('Getting balance.');
     const balance = await getBalance(bot.api, accessToken);
     console.log('Saving balance.');
-    await saveBalance(balance, bot.id);
+    await saveBalance(balance);
   }
 
   return null;

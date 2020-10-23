@@ -2,6 +2,8 @@ import * as camelcaseKeys from 'camelcase-keys';
 import { firebase } from '.';
 import { Trades, Trade, ParsedTrades } from '../bots/models';
 import { getDate } from '../../utils/getDate';
+import { TradeTransactionData, TransactionType } from './models';
+import { saveTransaction } from './saveTransaction';
 
 const getTradeId = (botId: string, trade: Trade): string => {
   const coin = trade.pair.split('/')[0];
@@ -27,16 +29,28 @@ export const saveTrades = async (
 
   for (const trade of trades) {
     const id = getTradeId(botId, trade);
-    const tradeExists = existingTrades.some(
+    const existingTrade = existingTrades.filter(
       (trade) => trade.id === id && trade.closeTimestamp,
-    );
+    )[0];
 
-    if (!tradeExists) {
+    if (!existingTrade) {
       const parsedTrade = camelcaseKeys(trade);
       await tradesRef.doc(id).set({
         ...parsedTrade,
         dateAdded: date,
       });
+    }
+
+    if (existingTrade && !trade.is_open) {
+      // closed trade, save the trade as transaction
+      const tradeTransactionData: TradeTransactionData = {
+        date,
+        amount: existingTrade.closeProfitAbs, // profit/loss
+        type: TransactionType.TRADE,
+        tradeId: existingTrade.id,
+      };
+
+      await saveTransaction(tradeTransactionData);
     }
   }
 
